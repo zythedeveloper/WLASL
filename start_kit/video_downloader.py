@@ -107,6 +107,7 @@ def download_yt_videos(saveto, video_url):
 def process_video(gloss, video_url, video_id, saveto):
     if 'youtube' not in video_url and 'youtu.be' not in video_url:
         download_nonyt_videos(saveto, gloss, video_id, video_url)
+        pass
     else:
         download_yt_videos(saveto, video_url)
 
@@ -159,7 +160,7 @@ if __name__ == '__main__':
     MAX_WORKERS = os.cpu_count() - 4
     futures = []
     count = 0
-    skip_counter = get_skip_counter(indexfile, LOGFILE) - (MAX_WORKERS*2)
+    skip_counter = get_skip_counter(indexfile, LOGFILE) - (MAX_WORKERS*2) if LOGFILE else 0
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         for entry in content:
